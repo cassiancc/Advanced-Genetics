@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "advancedgenetics:items/organic_matter/iron_golem_matter"
+        "layer0": "advancedgenetics:item/organic_matter/iron_golem_matter"
     }
 }
 

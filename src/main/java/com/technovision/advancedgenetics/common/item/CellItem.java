@@ -12,7 +12,7 @@ public class CellItem extends Item {
     private final int color;
 
     public CellItem(EntityType entityType, int color) {
-        super(new FabricItemSettings().group(AdvancedGenetics.TAB));
+        super(new FabricItemSettings());
         this.entityType = entityType;
         this.color = color;
     }

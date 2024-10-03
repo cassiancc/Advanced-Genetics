@@ -2,8 +2,9 @@ package com.technovision.advancedgenetics.api.blockentity;
 
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.registry.DynamicRegistryManager;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 
 public interface ProcessingBlockEntity {
 
@@ -11,9 +12,9 @@ public interface ProcessingBlockEntity {
 
     void updateRecipe();
 
-    boolean canProcessRecipe();
+    boolean canProcessRecipe(DynamicRegistryManager manager);
 
-    void processRecipe();
+    void processRecipe(DynamicRegistryManager manager);
 
     <T extends Recipe<SimpleInventory>> void setRecipe(@Nullable T pRecipe);
 

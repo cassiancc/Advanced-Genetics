@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tag.BlockTags;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -37,9 +37,9 @@ public abstract class LivingEntityMixin extends Entity {
             if ((Entity)this instanceof PlayerEntity player) {
                 if (player.getComponent(ComponentRegistry.PLAYER_GENETICS).hasGene(Genes.CLIMB_WALLS)) {
                     BlockPos blockPos = this.getBlockPos();
-                    BlockState blockBelowPlayer = world.getBlockState(blockPos.offset(Direction.DOWN, 1));
+                    BlockState blockBelowPlayer = getWorld().getBlockState(blockPos.offset(Direction.DOWN, 1));
                     if (blockBelowPlayer.getBlock() != Blocks.AIR
-                        && !blockBelowPlayer.isIn(BlockTags.REPLACEABLE_PLANTS)
+                        && !blockBelowPlayer.isIn(BlockTags.REPLACEABLE)
                         && !blockBelowPlayer.isIn(BlockTags.FLOWERS)) {
                         if (SpiderClimbUtil.canStartClimb(player, blockPos)) {
                             this.climbingPos = Optional.of(blockPos);

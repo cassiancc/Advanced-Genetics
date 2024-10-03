@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -37,7 +38,7 @@ public class DnaDecrypterBlockEntity extends AbstractInventoryBlockEntity {
     public void updateRecipe() { }
 
     @Override
-    public boolean canProcessRecipe() {
+    public boolean canProcessRecipe(DynamicRegistryManager manager) {
         ItemStack input = getStackInSlot(INPUT_SLOT_INDEX);
         ItemStack output = getStackInSlot(OUTPUT_SLOT_INDEX);
         return !input.isEmpty() && input.hasNbt()
@@ -48,7 +49,7 @@ public class DnaDecrypterBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public void processRecipe() {
+    public void processRecipe(DynamicRegistryManager manager) {
         if (getProgress() < getMaxProgress()) {
             incrementProgress();
         } else {

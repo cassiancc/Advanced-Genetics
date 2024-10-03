@@ -16,7 +16,7 @@ import net.minecraft.util.Hand;
 public class ScalpelItem extends Item {
 
     public ScalpelItem(int durability) {
-        super(new FabricItemSettings().group(AdvancedGenetics.TAB).maxCount(1).maxDamage(durability));
+        super(new FabricItemSettings().maxCount(1).maxDamage(durability));
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ScalpelItem extends Item {
         }
         if (item != null) {
             entity.dropItem(item);
-            entity.damage(DamageSource.player(user), 1.0f);
+            entity.damage(user.getDamageSources().playerAttack(user), 1.0f);
             stack.damage(1, user, (e) -> user.sendToolBreakStatus(user.getActiveHand()));
         }
     }

@@ -2,6 +2,8 @@ package com.technovision.advancedgenetics.api.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.technovision.advancedgenetics.AdvancedGenetics;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
@@ -23,13 +25,13 @@ public abstract class AbstractGeneticsScreen<M extends AbstractGeneticsScreenHan
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        renderBackground(matrices);
-        drawBackground(matrices, delta, mouseX, mouseY);
-        super.render(matrices, mouseX, mouseY, delta);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        renderBackground(context);
+        drawBackground(context, delta, mouseX, mouseY);
+        super.render(context, mouseX, mouseY, delta);
     }
 
-    public void renderDisplayTooltip(List<DisplayData> displayData, MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
+    public void renderDisplayTooltip(List<DisplayData> displayData, DrawContext context, TextRenderer textRenderer, int x, int y, int mouseX, int mouseY) {
         displayData.stream().filter(data ->
                 mouseX >= data.getX() + x &&
                         mouseX <= data.getX() + x + data.getWidth() &&
@@ -37,7 +39,7 @@ public abstract class AbstractGeneticsScreen<M extends AbstractGeneticsScreenHan
                         mouseY <= data.getY() + y + data.getHeight()
         ).forEach(data -> {
             if (!(data instanceof ProgressDisplayData)) {
-                renderTooltip(matrices, data.toText(), mouseX, mouseY);
+                context.drawTooltip(textRenderer, data.toText(), mouseX, mouseY);
             }
         });
     }
@@ -119,12 +121,13 @@ public abstract class AbstractGeneticsScreen<M extends AbstractGeneticsScreenHan
     }
 
     private void directionalBlit(MatrixStack matrices, int x, int y, int uOffset, int vOffset, int u, int v, int progress, int maxProgress, Direction2D direction2D) {
-        RenderSystem.setShaderTexture(0, new Identifier(AdvancedGenetics.MOD_ID, "textures/gui/cell_analyzer_gui.png"));
+        RenderSystem.setShaderTexture(0, Identifier.of(AdvancedGenetics.MOD_ID, "textures/gui/cell_analyzer_gui.png"));
 
         switch (direction2D) {
             case LEFT -> {
                 int scaled = getBarScaled(v, progress, maxProgress);
-                drawTexture(matrices, x - scaled, y, uOffset + u - scaled, vOffset, scaled, v);
+
+                    drawTexture(matrices, x - scaled, y, uOffset + u - scaled, vOffset, scaled, v);
             }
             case UP -> {
                 int scaled = getBarScaled(v, progress, maxProgress);

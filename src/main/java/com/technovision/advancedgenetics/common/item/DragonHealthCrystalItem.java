@@ -7,6 +7,6 @@ import net.minecraft.item.Item;
 public class DragonHealthCrystalItem extends Item {
 
     public DragonHealthCrystalItem() {
-        super(new FabricItemSettings().maxCount(1).maxDamage(1000).group(AdvancedGenetics.TAB));
+        super(new FabricItemSettings().maxCount(1).maxDamage(1000));
     }
 }

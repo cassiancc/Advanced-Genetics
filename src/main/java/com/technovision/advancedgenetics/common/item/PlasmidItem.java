@@ -20,7 +20,7 @@ public class PlasmidItem extends Item {
     public static final int MAX_GENES = Config.Common.plasmidRequirement.get();
 
     public PlasmidItem() {
-        super(new FabricItemSettings().group(AdvancedGenetics.TAB).maxCount(1));
+        super(new FabricItemSettings().maxCount(1));
     }
 
     @Override

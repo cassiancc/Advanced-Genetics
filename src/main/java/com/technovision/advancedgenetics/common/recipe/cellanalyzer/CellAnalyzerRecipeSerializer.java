@@ -29,6 +29,6 @@ public class CellAnalyzerRecipeSerializer implements RecipeSerializer<CellAnalyz
     @Override
     public void write(PacketByteBuf buf, CellAnalyzerRecipe recipe) {
         buf.writeItemStack(recipe.getInput());
-        buf.writeItemStack(recipe.getOutput());
+//        buf.writeItemStack(recipe.getOutput());
     }
 }

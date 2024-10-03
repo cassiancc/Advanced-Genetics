@@ -8,8 +8,9 @@ import com.technovision.advancedgenetics.common.block.dnaextractor.DnaExtractorS
 import com.technovision.advancedgenetics.common.block.plasmidinfuser.PlasmidInfuserScreenHandler;
 import com.technovision.advancedgenetics.common.block.plasmidinjector.PlasmidInjectorScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class ScreenRegistry {
 
@@ -21,11 +22,11 @@ public class ScreenRegistry {
     public static ExtendedScreenHandlerType<PlasmidInjectorScreenHandler> PLASMID_INJECTOR_SCREEN_HANDLER = new ExtendedScreenHandlerType<>(PlasmidInjectorScreenHandler::new);
 
     public static void registerScreens() {
-        Registry.register(Registry.SCREEN_HANDLER, new Identifier(AdvancedGenetics.MOD_ID, "cell_analyzer_menu"), CELL_ANALYZER_SCREEN_HANDLER);
-        Registry.register(Registry.SCREEN_HANDLER, new Identifier(AdvancedGenetics.MOD_ID, "dna_extractor_menu"), DNA_EXTRACTOR_SCREEN_HANDLER);
-        Registry.register(Registry.SCREEN_HANDLER, new Identifier(AdvancedGenetics.MOD_ID, "dna_decrypter_menu"), DNA_DECRYPTER_SCREEN_HANDLER);
-        Registry.register(Registry.SCREEN_HANDLER, new Identifier(AdvancedGenetics.MOD_ID, "plasmid_infuser_menu"), PLASMID_INFUSER_SCREEN_HANDLER);
-        Registry.register(Registry.SCREEN_HANDLER, new Identifier(AdvancedGenetics.MOD_ID, "blood_purifier_menu"), BLOOD_PURIFIER_SCREEN_HANDLER);
-        Registry.register(Registry.SCREEN_HANDLER, new Identifier(AdvancedGenetics.MOD_ID, "plasmid_injector_menu"), PLASMID_INJECTOR_SCREEN_HANDLER);
+        Registry.register(Registries.SCREEN_HANDLER, new Identifier(AdvancedGenetics.MOD_ID, "cell_analyzer_menu"), CELL_ANALYZER_SCREEN_HANDLER);
+        Registry.register(Registries.SCREEN_HANDLER, new Identifier(AdvancedGenetics.MOD_ID, "dna_extractor_menu"), DNA_EXTRACTOR_SCREEN_HANDLER);
+        Registry.register(Registries.SCREEN_HANDLER, new Identifier(AdvancedGenetics.MOD_ID, "dna_decrypter_menu"), DNA_DECRYPTER_SCREEN_HANDLER);
+        Registry.register(Registries.SCREEN_HANDLER, new Identifier(AdvancedGenetics.MOD_ID, "plasmid_infuser_menu"), PLASMID_INFUSER_SCREEN_HANDLER);
+        Registry.register(Registries.SCREEN_HANDLER, new Identifier(AdvancedGenetics.MOD_ID, "blood_purifier_menu"), BLOOD_PURIFIER_SCREEN_HANDLER);
+        Registry.register(Registries.SCREEN_HANDLER, new Identifier(AdvancedGenetics.MOD_ID, "plasmid_injector_menu"), PLASMID_INJECTOR_SCREEN_HANDLER);
     }
 }

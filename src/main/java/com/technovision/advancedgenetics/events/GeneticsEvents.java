@@ -31,6 +31,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -119,7 +120,7 @@ public class GeneticsEvents {
             if (component.hasGene(Genes.EXPLOSIVE_EXIT)) {
                 // Explode on death
                 if (player.getInventory().count(Items.GUNPOWDER) >= 5) {
-                    player.getWorld().createExplosion(player, player.getX(), player.getY(), player.getZ(), 3.0f, Explosion.DestructionType.BREAK);
+                    player.getWorld().createExplosion(player, player.getX(), player.getY(), player.getZ(), 3.0f, World.ExplosionSourceType.MOB);
                 }
             }
             if (component.hasGene(Genes.EMERALD_HEART)) {

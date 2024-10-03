@@ -20,9 +20,9 @@ public class FireballEntity extends SmallFireballEntity {
 
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        if (!this.world.isClient) {
-            boolean bl = this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING);
-            this.world.createExplosion((Entity)null, this.getX(), this.getY(), this.getZ(), 1, bl, bl ? Explosion.DestructionType.DESTROY : Explosion.DestructionType.NONE);
+        if (!this.getWorld().isClient) {
+            boolean bl = this.getWorld().getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING);
+            this.getWorld().createExplosion(null, this.getX(), this.getY(), this.getZ(), 1, bl, bl ? World.ExplosionSourceType.MOB : World.ExplosionSourceType.NONE);
             this.discard();
         }
 
@@ -30,10 +30,10 @@ public class FireballEntity extends SmallFireballEntity {
 
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
-        if (!this.world.isClient) {
+        if (!this.getWorld().isClient) {
             Entity entity = entityHitResult.getEntity();
             Entity entity2 = this.getOwner();
-            entity.damage(DamageSource.fireball(this, entity2), 5.0F);
+            entity.damage(entity.getDamageSources().fireball(this, entity2), 5.0F);
             if (entity2 instanceof LivingEntity) {
                 this.applyDamageEffects((LivingEntity)entity2, entity);
             }

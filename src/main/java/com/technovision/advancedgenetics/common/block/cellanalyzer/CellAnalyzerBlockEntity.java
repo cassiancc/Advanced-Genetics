@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -50,27 +51,27 @@ public class CellAnalyzerBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public boolean canProcessRecipe() {
+    public boolean canProcessRecipe(DynamicRegistryManager manager) {
         if (recipe != null) {
             ItemStack input = getStackInSlot(INPUT_SLOT_INDEX);
             ItemStack output = getStackInSlot(OUTPUT_SLOT_INDEX);
             return getEnergyStorage().getAmount() >= getEnergyRequirement()
                     && (ItemStack.canCombine(input, recipe.getInput()) && input.getCount() >= recipe.getInput().getCount())
-                    && (recipe.getOutput().getCount() + output.getCount()) <= recipe.getOutput().getMaxCount()
-                    && (ItemStack.canCombine(output, recipe.getOutput()) || output.isEmpty());
+                    && (recipe.getOutput(manager).getCount() + output.getCount()) <= recipe.getOutput(manager).getMaxCount()
+                    && (ItemStack.canCombine(output, recipe.getOutput(manager)) || output.isEmpty());
         }
         return false;
     }
 
     @Override
-    public void processRecipe() {
+    public void processRecipe(DynamicRegistryManager manager) {
         if (getProgress() < getMaxProgress()) {
             incrementProgress();
         } else {
             setProgress(0);
             decrementSlot(INPUT_SLOT_INDEX, recipe.getInput().getCount());
             if (ThreadLocalRandom.current().nextDouble() <= Config.Common.cellAnalyzerSuccessRate.get()) {
-                setOrIncrement(OUTPUT_SLOT_INDEX, recipe.getOutput().copy());
+                setOrIncrement(OUTPUT_SLOT_INDEX, recipe.getOutput(manager).copy());
             }
         }
         extractEnergy(getEnergyRequirement());

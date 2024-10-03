@@ -5,9 +5,11 @@ import com.technovision.advancedgenetics.api.screen.slot.OrganicMatterSlot;
 import com.technovision.advancedgenetics.api.screen.slot.OutputSlot;
 import com.technovision.advancedgenetics.registry.ScreenRegistry;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
@@ -30,5 +32,10 @@ public class CellAnalyzerScreenHandler extends AbstractGeneticsScreenHandler {
 
         this.propertyDelegate = delegate;
         addProperties(delegate);
+    }
+
+    @Override
+    public ItemStack quickMove(PlayerEntity player, int slot) {
+        return null;
     }
 }

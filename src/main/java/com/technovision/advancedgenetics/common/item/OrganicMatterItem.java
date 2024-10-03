@@ -12,8 +12,9 @@ public class OrganicMatterItem extends Item {
     private final EntityType entityType;
 
     public OrganicMatterItem(EntityType entityType) {
-        super(new FabricItemSettings().group(AdvancedGenetics.TAB));
+        super(new FabricItemSettings());
         this.entityType = entityType;
+
     }
 
     public EntityType getEntityType() {

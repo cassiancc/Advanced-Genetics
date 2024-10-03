@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
@@ -29,16 +30,17 @@ public class CellAnalyzerRecipe extends AbstractGeneticsRecipe {
     }
 
     @Override
-    public ItemStack craft(SimpleInventory inventory) {
+    public ItemStack craft(SimpleInventory inventory, DynamicRegistryManager registryManager) {
+        return output;
+    }
+
+    @Override
+    public ItemStack getOutput(DynamicRegistryManager registryManager) {
         return output;
     }
 
     public ItemStack getInput() {
         return input;
-    }
-
-    public ItemStack getOutput() {
-        return output;
     }
 
     @Override

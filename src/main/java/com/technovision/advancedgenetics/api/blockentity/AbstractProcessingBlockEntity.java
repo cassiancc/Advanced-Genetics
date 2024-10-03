@@ -8,16 +8,16 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.Registries;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Nameable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 import java.util.Objects;
@@ -34,7 +34,7 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
 
     public AbstractProcessingBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, long energyCapacity, int maxProgress, int maxOverclock) {
         super(type, pos, state);
-        String blockEntityName = Objects.requireNonNull(Registry.BLOCK_ENTITY_TYPE.getId(getType())).getPath();
+        String blockEntityName = Objects.requireNonNull(Registries.BLOCK_ENTITY_TYPE.getId(getType())).getPath();
         this.name = Text.translatable(String.format("%s.container.%s", AdvancedGenetics.MOD_ID, blockEntityName));
         energyStorage = new SimpleEnergyStorage(energyCapacity, energyCapacity, energyCapacity) {
             @Override
@@ -93,8 +93,8 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
     public void tick() {
         if (world != null && !world.isClient()) {
             updateRecipe();
-            if (canProcessRecipe()) {
-                processRecipe();
+            if (canProcessRecipe(world.getRegistryManager())) {
+                processRecipe(world.getRegistryManager());
             } else if (progress > 0) {
                 setProgress(0);
                 setRecipe(null);

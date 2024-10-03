@@ -5,6 +5,8 @@ import com.technovision.advancedgenetics.component.PlayerGeneticsComponent;
 import com.technovision.advancedgenetics.registry.ComponentRegistry;
 import com.technovision.advancedgenetics.registry.ItemRegistry;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -50,7 +52,7 @@ public class DamageReceivedEvent {
         PlayerGeneticsComponent component = player.getComponent(ComponentRegistry.PLAYER_GENETICS);
 
         // Handles "No Fall Damage" gene
-        if (source.isFromFalling() && component.hasGene(Genes.NO_FALL_DAMAGE)) {
+        if (source.isOf(DamageTypes.FALL) && component.hasGene(Genes.NO_FALL_DAMAGE)) {
             return true;
         }
         // Handles "Poison Immunity" gene

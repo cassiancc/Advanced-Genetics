@@ -7,8 +7,9 @@ import com.technovision.advancedgenetics.common.block.dnadecrypter.DnaDecrypterB
 import com.technovision.advancedgenetics.common.block.dnaextractor.DnaExtractorBlock;
 import com.technovision.advancedgenetics.common.block.plasmidinfuser.PlasmidInfuserBlock;
 import com.technovision.advancedgenetics.common.block.plasmidinjector.PlasmidInjectorBlock;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class BlockRegistry {
 
@@ -20,11 +21,11 @@ public class BlockRegistry {
     public static final PlasmidInjectorBlock PLASMID_INJECTOR = new PlasmidInjectorBlock();
 
     public static void registerBlocks() {
-        Registry.register(Registry.BLOCK, new Identifier(AdvancedGenetics.MOD_ID, "cell_analyzer"), CELL_ANALYZER);
-        Registry.register(Registry.BLOCK, new Identifier(AdvancedGenetics.MOD_ID, "dna_extractor"), DNA_EXTRACTOR);
-        Registry.register(Registry.BLOCK, new Identifier(AdvancedGenetics.MOD_ID, "dna_decrypter"), DNA_DECRYPTER);
-        Registry.register(Registry.BLOCK, new Identifier(AdvancedGenetics.MOD_ID, "plasmid_infuser"), PLASMID_INFUSER);
-        Registry.register(Registry.BLOCK, new Identifier(AdvancedGenetics.MOD_ID, "blood_purifier"), BLOOD_PURIFIER);
-        Registry.register(Registry.BLOCK, new Identifier(AdvancedGenetics.MOD_ID, "plasmid_injector"), PLASMID_INJECTOR);
+        Registry.register(Registries.BLOCK, new Identifier(AdvancedGenetics.MOD_ID, "cell_analyzer"), CELL_ANALYZER);
+        Registry.register(Registries.BLOCK, new Identifier(AdvancedGenetics.MOD_ID, "dna_extractor"), DNA_EXTRACTOR);
+        Registry.register(Registries.BLOCK, new Identifier(AdvancedGenetics.MOD_ID, "dna_decrypter"), DNA_DECRYPTER);
+        Registry.register(Registries.BLOCK, new Identifier(AdvancedGenetics.MOD_ID, "plasmid_infuser"), PLASMID_INFUSER);
+        Registry.register(Registries.BLOCK, new Identifier(AdvancedGenetics.MOD_ID, "blood_purifier"), BLOOD_PURIFIER);
+        Registry.register(Registries.BLOCK, new Identifier(AdvancedGenetics.MOD_ID, "plasmid_injector"), PLASMID_INJECTOR);
     }
 }

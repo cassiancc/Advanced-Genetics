@@ -11,6 +11,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -38,14 +39,14 @@ public class DnaExtractorBlockEntity extends AbstractInventoryBlockEntity {
     public void updateRecipe() { }
 
     @Override
-    public boolean canProcessRecipe() {
+    public boolean canProcessRecipe(DynamicRegistryManager manager) {
         return !getStackInSlot(INPUT_SLOT_INDEX).isEmpty()
                 && getStackInSlot(OUTPUT_SLOT_INDEX).isEmpty()
                 && getEnergyStorage().getAmount() >= getEnergyRequirement();
     }
 
     @Override
-    public void processRecipe() {
+    public void processRecipe(DynamicRegistryManager manager) {
         if (getProgress() < getMaxProgress()) {
             incrementProgress();
         } else {

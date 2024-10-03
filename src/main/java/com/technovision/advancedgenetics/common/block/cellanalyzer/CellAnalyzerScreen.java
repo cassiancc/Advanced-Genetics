@@ -3,8 +3,8 @@ package com.technovision.advancedgenetics.common.block.cellanalyzer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.technovision.advancedgenetics.AdvancedGenetics;
 import com.technovision.advancedgenetics.api.screen.*;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -27,28 +27,28 @@ public class CellAnalyzerScreen extends AbstractGeneticsScreen<CellAnalyzerScree
     }
 
     @Override
-    protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+    protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        drawTexture(matrices, this.x, this.y, 0, 0, backgroundWidth, backgroundHeight);
+        context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        super.render(matrices, mouseX, mouseY, delta);
-        renderDisplayData(displayData, matrices, this.x, this.y);
-        renderDisplayTooltip(displayData, matrices, this.x, this.y, mouseX, mouseY);
-        drawMouseoverTooltip(matrices, mouseX, mouseY);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        super.render(context, mouseX, mouseY, delta);
+        renderDisplayData(displayData, context.getMatrices(), this.x, this.y);
+        renderDisplayTooltip(displayData, context, textRenderer, this.x, this.y, mouseX, mouseY);
+        drawMouseoverTooltip(context, mouseX, mouseY);
     }
 
     @Override
-    protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
-        super.drawForeground(matrices, mouseX, mouseY);
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+        super.drawForeground(context, mouseX, mouseY);
         int overclock = handler.getPropertyDelegate().get(4);
         if (overclock > 0) {
             String text = "x"+overclock;
-            textRenderer.draw(matrices, text, backgroundWidth - textRenderer.getWidth(text) - 8, 6, 0x3f3f3f);
+            context.drawText(textRenderer, text, x, y, 6, true);
         }
     }
 

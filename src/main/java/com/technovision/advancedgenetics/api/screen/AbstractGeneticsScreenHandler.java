@@ -35,7 +35,7 @@ public abstract class AbstractGeneticsScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public ItemStack transferSlot(PlayerEntity player, int invSlot) {
+    public ItemStack quickMove(PlayerEntity player, int invSlot) {
         int blockEntitySlots = inputSlots + outputSlots;
         Slot sourceSlot = slots.get(invSlot);
         if (!sourceSlot.hasStack()) {

@@ -1,7 +1,7 @@
 {
     "parent": "item/handheld",
     "textures": {
-        "layer0": "advancedgenetics:items/metal_scalpel"
+        "layer0": "advancedgenetics:item/metal_scalpel"
     }
 }
 

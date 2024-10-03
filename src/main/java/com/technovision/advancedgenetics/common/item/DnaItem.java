@@ -20,7 +20,7 @@ import java.util.List;
 public class DnaItem extends Item {
 
     public DnaItem() {
-        super(new FabricItemSettings().group(AdvancedGenetics.TAB));
+        super(new FabricItemSettings());
     }
 
     @Override

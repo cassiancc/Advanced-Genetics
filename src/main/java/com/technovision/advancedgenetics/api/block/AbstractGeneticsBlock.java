@@ -28,14 +28,14 @@ public abstract class AbstractGeneticsBlock extends BlockWithEntity implements B
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
     protected AbstractGeneticsBlock(BiFunction<BlockPos, BlockState, BlockEntity> blockEntity) {
-        super(FabricBlockSettings.of(Material.METAL).requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
+        super(FabricBlockSettings.create().mapColor(MapColor.IRON_GRAY).requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
         blockEntityFunction = blockEntity;
     }
 
     @Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+        return this.getDefaultState().with(FACING, ctx.getPlayerLookDirection().getOpposite());
     }
 
     @Override

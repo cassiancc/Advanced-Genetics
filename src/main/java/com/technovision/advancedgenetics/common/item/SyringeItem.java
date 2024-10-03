@@ -9,6 +9,8 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,7 +29,7 @@ import java.util.List;
 public class SyringeItem extends Item {
 
     public SyringeItem() {
-        super(new FabricItemSettings().group(AdvancedGenetics.TAB).maxCount(1));
+        super(new FabricItemSettings().maxCount(1));
     }
 
     @Override
@@ -67,7 +69,7 @@ public class SyringeItem extends Item {
             // Draw blood
             if (!world.isClient()) {
                 fill(stack, (PlayerEntity)user);
-                user.damage(DamageSource.GENERIC, 1.0f);
+                user.damage(world.getDamageSources().generic(), 1.0f);
             }
         } else if (tag.getBoolean("purified") && tag.contains("genes")) {
             // Inject genes into bloodstream
@@ -77,7 +79,7 @@ public class SyringeItem extends Item {
                     return stack;
                 }
                 inject((PlayerEntity) user, user.getMainHandStack());
-                user.damage(DamageSource.GENERIC, 1.0f);
+                user.damage(world.getDamageSources().generic(), 1.0f);
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 20*10));
             }
         }
