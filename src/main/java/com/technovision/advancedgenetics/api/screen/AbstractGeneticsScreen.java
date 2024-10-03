@@ -44,18 +44,18 @@ public abstract class AbstractGeneticsScreen<M extends AbstractGeneticsScreenHan
         });
     }
 
-    public void renderDisplayData(List<DisplayData> displayData, MatrixStack matrices, int x, int y) {
+    public void renderDisplayData(List<DisplayData> displayData, DrawContext context, int x, int y) {
         displayData.forEach(data -> {
             if (data instanceof ProgressDisplayData) {
-                directionalArrow(matrices, x + data.getX(), y + data.getY(), data.getValue(), data.getMaxValue(), ((ProgressDisplayData) data).getDirection());
+                directionalArrow(context, x + data.getX(), y + data.getY(), data.getValue(), data.getMaxValue(), ((ProgressDisplayData) data).getDirection());
             }
             if (data instanceof EnergyDisplayData) {
-                drawEnergyBar(matrices, (EnergyDisplayData) data, 178, 4);
+                drawEnergyBar(context, (EnergyDisplayData) data, 178, 4);
             }
         });
     }
 
-    public void drawEnergyBar(MatrixStack pPoseStack, EnergyDisplayData data, int textureX, int textureY) {
+    public void drawEnergyBar(DrawContext pPoseStack, EnergyDisplayData data, int textureX, int textureY) {
         int x = data.getX() + (this.width - this.backgroundWidth) / 2;
         int y = data.getY() + (this.height - this.backgroundHeight) / 2;
         this.directionalBlit(pPoseStack, x, y + data.getHeight(), textureX, textureY, data.getWidth(), data.getHeight(), data.getValue(), data.getMaxValue(), Direction2D.UP);
@@ -111,35 +111,35 @@ public abstract class AbstractGeneticsScreen<M extends AbstractGeneticsScreenHan
         RenderSystem.setShaderColor(red, green, blue, alpha);
     }
 
-    public void directionalArrow(MatrixStack matrices, int x, int y, int progress, int maxProgress, Direction2D direction2D) {
+    public void directionalArrow(DrawContext context, int x, int y, int progress, int maxProgress, Direction2D direction2D) {
         switch (direction2D) {
-            case LEFT -> directionalBlit(matrices, x, y, 0, 120, 9, 30, progress, maxProgress, Direction2D.LEFT);
-            case UP -> directionalBlit(matrices, x, y, 0, 138, 9, 30, progress, maxProgress, Direction2D.UP);
-            case RIGHT -> directionalBlit(matrices, x, y, 177, 61, 17, 24, progress, maxProgress, Direction2D.RIGHT);
-            case DOWN -> directionalBlit(matrices, x, y, 9, 138, 9, 30, progress, maxProgress, Direction2D.DOWN);
+            case LEFT -> directionalBlit(context, x, y, 0, 120, 9, 30, progress, maxProgress, Direction2D.LEFT);
+            case UP -> directionalBlit(context, x, y, 0, 138, 9, 30, progress, maxProgress, Direction2D.UP);
+            case RIGHT -> directionalBlit(context, x, y, 177, 61, 17, 24, progress, maxProgress, Direction2D.RIGHT);
+            case DOWN -> directionalBlit(context, x, y, 9, 138, 9, 30, progress, maxProgress, Direction2D.DOWN);
         }
     }
 
-    private void directionalBlit(MatrixStack matrices, int x, int y, int uOffset, int vOffset, int u, int v, int progress, int maxProgress, Direction2D direction2D) {
-        RenderSystem.setShaderTexture(0, Identifier.of(AdvancedGenetics.MOD_ID, "textures/gui/cell_analyzer_gui.png"));
+    private void directionalBlit(DrawContext context, int x, int y, int uOffset, int vOffset, int u, int v, int progress, int maxProgress, Direction2D direction2D) {
+        Identifier TEXTURE = Identifier.of(AdvancedGenetics.MOD_ID, "textures/gui/cell_analyzer_gui.png");
+        RenderSystem.setShaderTexture(0, TEXTURE);
 
         switch (direction2D) {
             case LEFT -> {
                 int scaled = getBarScaled(v, progress, maxProgress);
-
-                    drawTexture(matrices, x - scaled, y, uOffset + u - scaled, vOffset, scaled, v);
+                context.drawTexture(TEXTURE, x - scaled, y, uOffset + u - scaled, vOffset, scaled, v);
             }
             case UP -> {
                 int scaled = getBarScaled(v, progress, maxProgress);
-                drawTexture(matrices, x, y - scaled, uOffset, vOffset + v - scaled, u, scaled);
+                context.drawTexture(TEXTURE, x, y - scaled, uOffset, vOffset + v - scaled, u, scaled);
             }
             case RIGHT -> {
                 int scaled = getBarScaled(v, progress, maxProgress);
-                drawTexture(matrices, x, y, uOffset, vOffset, scaled, u);
+                context.drawTexture(TEXTURE, x, y, uOffset, vOffset, scaled, u);
             }
             case DOWN -> {
                 int scaled = getBarScaled(v, progress, maxProgress);
-                drawTexture(matrices, x, y, uOffset, vOffset, u, scaled);
+                context.drawTexture(TEXTURE, x, y, uOffset, vOffset, u, scaled);
             }
         }
     }

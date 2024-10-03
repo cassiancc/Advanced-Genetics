@@ -42,7 +42,7 @@ public class BloodPurifierScreen extends AbstractGeneticsScreen<BloodPurifierScr
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
-        renderDisplayData(displayData, context.getMatrices(), this.x, this.y);
+        renderDisplayData(displayData, context, this.x, this.y);
         renderDisplayTooltip(displayData, context, textRenderer, this.x, this.y, mouseX, mouseY);
         drawMouseoverTooltip(context, mouseX, mouseY);
     }
